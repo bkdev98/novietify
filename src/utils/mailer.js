@@ -3,7 +3,8 @@ import nodemailer from 'nodemailer';
 import constants from '../config/constants';
 
 const transporter = nodemailer.createTransport({
-  service: 'Yandex',
+  host: 'smtp.zoho.com',
+  port: 465,
   auth: {
     user: constants.EMAIL_USER,
     pass: constants.EMAIL_PASS,

@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import express from 'express';
 import constants from './config/constants';
 import configMiddleware from './config/middlewares';

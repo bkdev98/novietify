@@ -1,12 +1,14 @@
-import rp from 'request-promise';
+import axios from 'axios';
 
 import { notify } from './mailer';
 import Movie from '../models/movie.model';
 import User from '../models/user.model';
 
 async function getStatus(id) {
-  const data = await rp(`https://www.galaxycine.vn/api/session/movie/${id}`);
-  return JSON.parse(data);
+  const { data } = await axios.get(
+    `https://www.galaxycine.vn/api/session/movie/${id}`
+  );
+  return data;
 }
 
 async function getUserToNoti(id) {
@@ -14,9 +16,11 @@ async function getUserToNoti(id) {
 }
 
 export async function getMovies() {
-  const data = await rp('https://www.galaxycine.vn/api/movie/showAndComming');
-  const movies = JSON.parse(data);
-  return [...movies.movieShowing, ...movies.movieCommingSoon];
+  const { data } = await axios.get(
+    'https://www.galaxycine.vn/api/movie/showAndComming'
+  );
+  if (!data) return [];
+  return [...data.movieShowing, ...data.movieCommingSoon];
 }
 
 export async function checkBookingStatus() {
